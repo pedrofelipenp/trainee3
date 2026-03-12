@@ -1,0 +1,26 @@
+{
+  "name": "rxjs-desafio",
+  "version": "1.0.0",
+  "description": "Sistema de Monitoramento Reativo com RxJS - Desafio Prático",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "build": "tsc",
+    "dev": "ts-node --watch src/main.ts"
+  },
+  "keywords": [
+    "rxjs",
+    "reactive",
+    "observables"
+  ],
+  "author": "Pedro Felipe",
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  }
+}
