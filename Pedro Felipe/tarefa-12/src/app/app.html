@@ -1,0 +1,166 @@
+<div class="main-wrapper">
+  <div class="container">
+    <div class="header">
+      <h2>Cadastro de Colaboradores</h2>
+      <p class="intro-text">
+        Por favor, preencha corretamente todos os campos abaixo para registrar um novo colaborador no sistema.
+        Este formulário utiliza Reactive Forms para validação robusta e em tempo real.
+        O preenchimento leva cerca de 3 minutos.
+      </p>
+    </div>
+
+    <!-- Formulário using Reactive Forms -->
+    <form [formGroup]="formColaborador" (ngSubmit)="onSubmit()">
+
+      <!-- Nome Completo -->
+      <div class="form-group">
+        <label for="nome">Nome Completo *</label>
+        <input
+          id="nome"
+          type="text"
+          formControlName="nomeCompleto"
+          placeholder="Digite o nome completo do colaborador"
+        >
+        @if (formColaborador.get('nomeCompleto')?.invalid && formColaborador.get('nomeCompleto')?.touched) {
+          <div class="error-msg">Nome é obrigatório e deve ter no mínimo 5 caracteres.</div>
+        }
+      </div>
+
+      <!-- E-mail -->
+      <div class="form-group">
+        <label for="email">E-mail Corporativo *</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="exemplo@empresa.com"
+        >
+        @if (formColaborador.get('email')?.invalid && formColaborador.get('email')?.touched) {
+          <div class="error-msg">Informe um e-mail válido.</div>
+        }
+      </div>
+
+      <!-- Telefone -->
+      <div class="form-group">
+        <label for="telefone">Telefone *</label>
+        <input
+          id="telefone"
+          type="text"
+          formControlName="telefone"
+          placeholder="(xx) xxxxx-xxxx"
+        >
+        @if (formColaborador.get('telefone')?.invalid && formColaborador.get('telefone')?.touched) {
+          <div class="error-msg">Formato: (xx) xxxxx-xxxx</div>
+        }
+      </div>
+
+      <!-- Departamento -->
+      <div class="form-group">
+        <label for="depto">Departamento *</label>
+        <select id="depto" formControlName="departamento">
+          <option value="" disabled selected>Selecione o departamento...</option>
+          <option value="ti">TI</option>
+          <option value="rh">Recursos Humanos</option>
+          <option value="financeiro">Financeiro</option>
+          <option value="vendas">Vendas</option>
+          <option value="operacoes">Operações</option>
+          <option value="marketing">Marketing</option>
+        </select>
+        @if (formColaborador.get('departamento')?.invalid && formColaborador.get('departamento')?.touched) {
+          <div class="error-msg">Departamento é obrigatório.</div>
+        }
+      </div>
+
+      <!-- Data de Admissão -->
+      <div class="form-group">
+        <label for="data">Data de Admissão *</label>
+        <input id="data" type="date" formControlName="dataAdmissao">
+        @if (formColaborador.get('dataAdmissao')?.invalid && formColaborador.get('dataAdmissao')?.touched) {
+          <div class="error-msg">Data de admissão é obrigatória.</div>
+        }
+      </div>
+
+      <!-- Salário -->
+      <div class="form-group">
+        <label for="salario">Salário Base (R$) *</label>
+        <input
+          id="salario"
+          type="number"
+          formControlName="salario"
+          placeholder="0.00"
+          step="0.01"
+        >
+        @if (formColaborador.get('salario')?.invalid && formColaborador.get('salario')?.touched) {
+          <div class="error-msg">Salário deve ser um valor válido maior ou igual a zero.</div>
+        }
+      </div>
+
+      <!-- Nível de Educação -->
+      <div class="form-group">
+        <label for="educacao">Nível de Educação *</label>
+        <select id="educacao" formControlName="nivelEducacao">
+          <option value="" disabled selected>Selecione...</option>
+          <option value="ensino-medio">Ensino Médio</option>
+          <option value="superior-incompleto">Ensino Superior Incompleto</option>
+          <option value="superior-completo">Ensino Superior Completo</option>
+          <option value="pos-graduacao">Pós-Graduação</option>
+          <option value="mestrado">Mestrado</option>
+          <option value="doutorado">Doutorado</option>
+        </select>
+        @if (formColaborador.get('nivelEducacao')?.invalid && formColaborador.get('nivelEducacao')?.touched) {
+          <div class="error-msg">Nível de educação é obrigatório.</div>
+        }
+      </div>
+
+      <!-- Competências (FormArray) -->
+      <div class="form-group">
+        <label>Competências Técnicas *</label>
+        <p class="field-description">Adicione pelo menos uma competência técnica</p>
+        <div formArrayName="competencias">
+          @for (competenciaControl of competencias.controls; track $index) {
+            <div class="competencia-item">
+              <input
+                [formControlName]="$index"
+                placeholder="Ex: Java, Python, Angular..."
+              >
+              @if ($index > 0) {
+                <button type="button" (click)="removerCompetencia($index)" class="btn-remove">
+                  ✕
+                </button>
+              }
+            </div>
+          }
+        </div>
+        <button type="button" (click)="adicionarCompetencia()" class="btn-add">
+          + Adicionar Competência
+        </button>
+      </div>
+
+      <!-- Botão de Submit -->
+      <button type="submit" [disabled]="formColaborador.invalid" class="btn-submit">
+        Registrar Colaborador
+      </button>
+
+      <!-- Mensagem de Sucesso -->
+      @if (enviado) {
+        <div class="success-banner">
+          ✅ Colaborador registrado com sucesso!
+        </div>
+      }
+
+      <!-- Mensagem de Validação -->
+      @if (formColaborador.invalid && formColaborador.touched) {
+        <p class="validation-message">
+          * Preencha todos os campos obrigatórios corretamente.
+        </p>
+      }
+
+    </form>
+  </div>
+
+  <!-- Componente de Preferências de Notificações -->
+  <div class="record-wrapper">
+    <hr class="separator">
+    <app-notification-preferences></app-notification-preferences>
+  </div>
+</div>

@@ -1,0 +1,197 @@
+/* Estilização do componente raiz */
+:host {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Container principal do formulário */
+.container {
+  background: white;
+  padding: 40px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Header do formulário */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h2 {
+  color: #667eea;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.intro-text {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Grupos de formulário */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.field-description {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 3px;
+}
+
+/* Labels dos campos */
+label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+/* Campos de input e select */
+input,
+select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Validação: campos inválidos */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #e74c3c;
+}
+
+/* Mensagens de erro */
+.error-msg {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Container de competências (FormArray) */
+.competencia-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.competencia-item input {
+  flex: 1;
+}
+
+/* Botões */
+button {
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-remove {
+  background-color: #e74c3c;
+  color: white;
+  padding: 8px 14px;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-remove:hover {
+  background-color: #c0392b;
+}
+
+.btn-add {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-add:hover {
+  background-color: #e67e22;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 14px;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.btn-submit:hover:not(:disabled) {
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-submit:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mensagens de sucesso */
+.success-banner {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid #c3e6cb;
+}
+
+/* Mensagem de validação */
+.validation-message {
+  text-align: center;
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 12px;
+}
+
+/* Record wrapper */
+.record-wrapper {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.separator {
+  border: none;
+  border-top: 2px dashed #ddd;
+  margin: 30px 0;
+}
