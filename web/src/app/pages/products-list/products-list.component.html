@@ -1,0 +1,100 @@
+<section class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+  <div>
+    <h1 class="h3 mb-1">Produtos</h1>
+    <p class="text-secondary mb-0">Gerencie o cadastro completo de produtos.</p>
+  </div>
+  <a routerLink="/products/new" class="btn btn-primary">Novo produto</a>
+</section>
+
+<div class="card shadow-sm border-0 mb-4">
+  <div class="card-body">
+    <div class="row g-2 align-items-end">
+      <div class="col-12 col-md-8">
+        <label for="search" class="form-label">Buscar por nome</label>
+        <input
+          id="search"
+          class="form-control"
+          [(ngModel)]="search"
+          (keyup.enter)="applySearch()"
+          placeholder="Ex.: Teclado mecanico"
+        />
+      </div>
+      <div class="col-12 col-md-4 d-grid">
+        <button class="btn btn-outline-primary" (click)="applySearch()" [disabled]="loading">
+          Pesquisar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+  {{ errorMessage }}
+</div>
+
+<div class="card shadow-sm border-0">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Preço</th>
+          <th>Estoque</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="4" class="text-center py-4">Carregando...</td>
+        </tr>
+        <tr *ngIf="!loading && products.length === 0">
+          <td colspan="4" class="text-center py-4">Nenhum produto encontrado.</td>
+        </tr>
+        <tr *ngFor="let product of products">
+          <td>
+            <div class="fw-semibold">{{ product.name }}</div>
+            <small class="text-secondary" *ngIf="product.description">{{ product.description }}</small>
+          </td>
+          <td>R$ {{ +product.price | number: '1.2-2' }}</td>
+          <td>{{ product.stock }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a
+                class="btn btn-sm btn-outline-secondary"
+                [routerLink]="['/products', product.id, 'edit']"
+              >
+                Editar
+              </a>
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="confirmDelete(product)"
+                [disabled]="deletingId === product.id"
+              >
+                {{ deletingId === product.id ? 'Excluindo...' : 'Excluir' }}
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <small class="text-secondary">Total: {{ total }}</small>
+  <div class="btn-group">
+    <button class="btn btn-sm btn-outline-secondary" (click)="previousPage()" [disabled]="page <= 1 || loading">
+      Anterior
+    </button>
+    <button class="btn btn-sm btn-outline-secondary" disabled>
+      Pagina {{ page }} de {{ totalPages }}
+    </button>
+    <button
+      class="btn btn-sm btn-outline-secondary"
+      (click)="nextPage()"
+      [disabled]="page >= totalPages || loading"
+    >
+      Proxima
+    </button>
+  </div>
+</div>
